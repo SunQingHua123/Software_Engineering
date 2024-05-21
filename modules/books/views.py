@@ -1,110 +1,120 @@
 # modules/books/views.py
 
 import sys
-from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QLineEdit, QPushButton, QListWidget, QMessageBox
-from .controllers import create_book, get_books, get_book_by_id, search_books, update_book, delete_book
-import datetime
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/../..")
 
-class BookManager(QMainWindow):
+from PySide6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QTableWidget, QTableWidgetItem, QMessageBox, QInputDialog
+from modules.books.controllers import create_book, get_books, get_book_by_id, search_books, update_book, delete_book
+
+class BookManager(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("书籍管理")
-        self.setGeometry(300, 300, 600, 400)
+        self.initUI()
+    
+    def initUI(self):
+        self.setWindowTitle('书籍管理系统')
+        self.setGeometry(100, 100, 600, 400)
         
-        self.central_widget = QWidget()
-        self.setCentralWidget(self.central_widget)
+        layout = QVBoxLayout()
         
-        self.layout = QVBoxLayout(self.central_widget)
+        self.searchBar = QLineEdit(self)
+        self.searchBar.setPlaceholderText('输入书籍标题搜索...')
+        layout.addWidget(self.searchBar)
         
-        self.book_list = QListWidget()
-        self.layout.addWidget(self.book_list)
+        self.searchButton = QPushButton('搜索', self)
+        self.searchButton.clicked.connect(self.searchBooks)
+        layout.addWidget(self.searchButton)
         
-        self.title_input = QLineEdit()
-        self.title_input.setPlaceholderText("书籍标题")
-        self.layout.addWidget(self.title_input)
+        self.bookTable = QTableWidget(self)
+        self.bookTable.setColumnCount(4)
+        self.bookTable.setHorizontalHeaderLabels(['ID', '书名', '作者', '出版日期'])
+        layout.addWidget(self.bookTable)
         
-        self.author_input = QLineEdit()
-        self.author_input.setPlaceholderText("书籍作者")
-        self.layout.addWidget(self.author_input)
+        self.addButton = QPushButton('添加书籍', self)
+        self.addButton.clicked.connect(self.addBook)
+        layout.addWidget(self.addButton)
         
-        self.date_input = QLineEdit()
-        self.date_input.setPlaceholderText("出版日期 (YYYY-MM-DD)")
-        self.layout.addWidget(self.date_input)
+        self.deleteButton = QPushButton('删除书籍', self)
+        self.deleteButton.clicked.connect(self.deleteBook)
+        layout.addWidget(self.deleteButton)
         
-        self.isbn_input = QLineEdit()
-        self.isbn_input.setPlaceholderText("ISBN")
-        self.layout.addWidget(self.isbn_input)
+        self.editButton = QPushButton('修改书籍', self)
+        self.editButton.clicked.connect(self.editBook)
+        layout.addWidget(self.editButton)
         
-        self.add_button = QPushButton("添加书籍")
-        self.add_button.clicked.connect(self.add_book)
-        self.layout.addWidget(self.add_button)
+        self.setLayout(layout)
+        self.searchBooks()
+    
+    def searchBooks(self):
+        title = self.searchBar.text()
+        books = search_books(title) if title else get_books()
+        self.bookTable.setRowCount(len(books))
         
-        self.update_button = QPushButton("更新书籍")
-        self.update_button.clicked.connect(self.update_book)
-        self.layout.addWidget(self.update_button)
+        for row, book in enumerate(books):
+            self.bookTable.setItem(row, 0, QTableWidgetItem(str(book.id)))
+            self.bookTable.setItem(row, 1, QTableWidgetItem(book.title))
+            self.bookTable.setItem(row, 2, QTableWidgetItem(book.author))
+            self.bookTable.setItem(row, 3, QTableWidgetItem(book.published_date.strftime('%Y-%m-%d')))
+    
+    def addBook(self):
+        title, ok1 = QInputDialog.getText(self, '书籍标题', '输入书籍标题:')
+        author, ok2 = QInputDialog.getText(self, '书籍作者', '输入书籍作者:')
+        published_date, ok3 = QInputDialog.getText(self, '出版日期', '输入出版日期 (YYYY-MM-DD):')
         
-        self.delete_button = QPushButton("删除书籍")
-        self.delete_button.clicked.connect(self.delete_book)
-        self.layout.addWidget(self.delete_button)
-        
-        self.search_input = QLineEdit()
-        self.search_input.setPlaceholderText("搜索书籍")
-        self.layout.addWidget(self.search_input)
-        
-        self.search_button = QPushButton("搜索")
-        self.search_button.clicked.connect(self.search_books)
-        self.layout.addWidget(self.search_button)
-        
-        self.load_books()
-        
-    def load_books(self):
-        self.book_list.clear()
-        books = get_books()
-        for book in books:
-            self.book_list.addItem(f"{book.id}: {book.title} - {book.author}")
-
-    def add_book(self):
-        title = self.title_input.text()
-        author = self.author_input.text()
-        try:
-            published_date = datetime.datetime.strptime(self.date_input.text(), "%Y-%m-%d")
-        except ValueError:
-            published_date = None
-        isbn = self.isbn_input.text()
-        user_id = 1  # 假设当前用户ID为1
-        create_book(title, author, published_date, isbn, user_id)
-        self.load_books()
-        
-    def update_book(self):
-        selected_item = self.book_list.currentItem()
-        if selected_item:
-            book_id = int(selected_item.text().split(":")[0])
-            title = self.title_input.text()
-            author = self.author_input.text()
+        if ok1 and ok2 and ok3:
             try:
-                published_date = datetime.datetime.strptime(self.date_input.text(), "%Y-%m-%d")
-            except ValueError:
-                published_date = None
-            isbn = self.isbn_input.text()
-            update_book(book_id, title, author, published_date, isbn)
-            self.load_books()
-            
-    def delete_book(self):
-        selected_item = self.book_list.currentItem()
-        if selected_item:
-            book_id = int(selected_item.text().split(":")[0])
+                create_book(title=title, author=author, published_date=published_date, isbn='', user_id=1)
+                QMessageBox.information(self, '成功', '书籍添加成功')
+                self.searchBooks()
+            except Exception as e:
+                QMessageBox.warning(self, '错误', f'书籍添加失败: {e}')
+        else:
+            QMessageBox.warning(self, '错误', '输入信息不完整')
+    
+    def deleteBook(self):
+        selected_rows = self.bookTable.selectionModel().selectedRows()
+        if not selected_rows:
+            QMessageBox.warning(self, '警告', '请先选中要删除的书籍')
+            return
+        
+        book_id = int(selected_rows[0].data())
+        
+        try:
             delete_book(book_id)
-            self.load_books()
+            QMessageBox.information(self, '成功', '书籍删除成功')
+            self.searchBooks()
+        except Exception as e:
+            QMessageBox.warning(self, '错误', f'书籍删除失败: {e}')
+    
+    def editBook(self):
+        selected_rows = self.bookTable.selectionModel().selectedRows()
+        if not selected_rows:
+            QMessageBox.warning(self, '警告', '请先选中要编辑的书籍')
+            return
+        
+        book_id = int(selected_rows[0].data())
+        book = get_book_by_id(book_id)
+        
+        if book:
+            title, ok1 = QInputDialog.getText(self, '书籍标题', '书籍标题:', text=book.title)
+            author, ok2 = QInputDialog.getText(self, '书籍作者', '书籍作者:', text=book.author)
+            published_date, ok3 = QInputDialog.getText(self, '出版日期', '出版日期 (YYYY-MM-DD):', text=book.published_date.strftime('%Y-%m-%d'))
             
-    def search_books(self):
-        query = self.search_input.text()
-        books = search_books(query)
-        self.book_list.clear()
-        for book in books:
-            self.book_list.addItem(f"{book.id}: {book.title} - {book.author}")
+            if ok1 and ok2 and ok3:
+                try:
+                    update_book(book_id, title=title, author=author, published_date=published_date, isbn=book.isbn)
+                    QMessageBox.information(self, '成功', '书籍信息修改成功')
+                    self.searchBooks()
+                except Exception as e:
+                    QMessageBox.warning(self, '错误', f'书籍信息修改失败: {e}')
+            else:
+                QMessageBox.warning(self, '错误', '输入信息不完整')
+        else:
+            QMessageBox.warning(self, '错误', '未找到书籍')
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app = QApplication(sys.argv)
-    window = BookManager()
-    window.show()
+    manager = BookManager()
+    manager.show()
     sys.exit(app.exec())

@@ -1,69 +1,56 @@
 # modules/books/controllers.py
-
-from sqlalchemy.orm import Session
-from database.session import get_db
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/../..")
 from modules.books.models import Book
-from typing import List, Optional
-import datetime
 
-def create_book(title: str, author: str, published_date: Optional[datetime.datetime], isbn: Optional[str], user_id: int) -> Book:
+def create_book(title, author, published_date, isbn, user_id):
     """
-    创建新书籍
+    创建书籍
     
     参数:
         title (str): 书籍标题
         author (str): 书籍作者
-        published_date (datetime): 书籍出版日期
+        published_date (str): 书籍出版日期
         isbn (str): 书籍ISBN编号
-        user_id (int): 用户ID，表示书籍所有者
-    
-    返回:
-        Book: 创建成功的书籍对象
+        user_id (int): 用户ID
     """
-    with get_db() as db:
-        new_book = Book(title=title, author=author, published_date=published_date, isbn=isbn, user_id=user_id)
-        db.add(new_book)
-        db.commit()
-        db.refresh(new_book)
-        return new_book
+    Book.create(title, author, published_date, isbn, user_id)
 
-def get_books() -> List[Book]:
+def get_books():
     """
     获取所有书籍
     
     返回:
-        List[Book]: 包含所有书籍对象的列表
+        list[Book]: 书籍对象列表
     """
-    with get_db() as db:
-        return db.query(Book).all()
+    return Book.get_all()
 
-def get_book_by_id(book_id: int) -> Optional[Book]:
+def get_book_by_id(book_id):
     """
-    根据ID获取书籍
+    根据书籍ID获取书籍信息
     
     参数:
         book_id (int): 书籍ID
     
     返回:
-        Optional[Book]: 对应ID的书籍对象，若不存在则返回 None
+        Book: 书籍对象
     """
-    with get_db() as db:
-        return db.query(Book).filter(Book.id == book_id).first()
+    return Book.get_by_id(book_id)
 
-def search_books(query: str) -> List[Book]:
+def search_books(title):
     """
-    搜索书籍
+    根据书籍标题搜索书籍信息
     
     参数:
-        query (str): 搜索关键词
+        title (str): 书籍标题
     
     返回:
-        List[Book]: 包含符合搜索条件的书籍对象的列表
+        list[Book]: 书籍对象列表
     """
-    with get_db() as db:
-        return db.query(Book).filter(Book.title.contains(query) | Book.author.contains(query)).all()
+    return Book.search_by_title(title)
 
-def update_book(book_id: int, title: Optional[str], author: Optional[str], published_date: Optional[datetime.datetime], isbn: Optional[str]) -> Optional[Book]:
+def update_book(book_id, title, author, published_date, isbn):
     """
     更新书籍信息
     
@@ -71,44 +58,16 @@ def update_book(book_id: int, title: Optional[str], author: Optional[str], publi
         book_id (int): 书籍ID
         title (str): 书籍标题
         author (str): 书籍作者
-        published_date (datetime): 书籍出版日期
+        published_date (str): 书籍出版日期
         isbn (str): 书籍ISBN编号
-    
-    返回:
-        Optional[Book]: 更新后的书籍对象，若书籍不存在则返回 None
     """
-    with get_db() as db:
-        book = db.query(Book).filter(Book.id == book_id).first()
-        if book:
-            if title:
-                book.title = title
-            if author:
-                book.author = author
-            if published_date:
-                book.published_date = published_date
-            if isbn:
-                book.isbn = isbn
-            db.commit()
-            db.refresh(book)
-            return book
-        else:
-            return None
+    Book.update(book_id, title, author, published_date, isbn)
 
-def delete_book(book_id: int) -> bool:
+def delete_book(book_id):
     """
-    删除书籍
+    删除书籍信息
     
     参数:
         book_id (int): 书籍ID
-    
-    返回:
-        bool: 删除成功返回 True，否则返回 False
     """
-    with get_db() as db:
-        book = db.query(Book).filter(Book.id == book_id).first()
-        if book:
-            db.delete(book)
-            db.commit()
-            return True
-        else:
-            return False
+    Book.delete(book_id)
