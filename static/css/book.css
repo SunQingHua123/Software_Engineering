@@ -1,0 +1,105 @@
+/* book.css */
+
+/* 内容区距顶部的间距，避免与导航栏重叠 */
+.container-fluid {
+    padding-top: 80px; /* 适配导航栏高度 */
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+nav.book-nav {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+nav.book-nav ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    gap: 1rem;
+}
+
+nav.book-nav ul li {
+    display: inline;
+}
+
+nav.book-nav ul li a {
+    color: black;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+nav.book-nav ul li a:hover {
+    text-decoration: underline;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+form {
+    margin-bottom: 2rem;
+}
+
+form div {
+    margin-bottom: 1rem;
+}
+
+form label {
+    display: block;
+}
+
+form input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    box-sizing: border-box;
+}
+
+form button {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+    text-align: left;
+}
+
+table th {
+    background-color: #f2f2f2;
+}
+
+table td a {
+    color: #007bff;
+    text-decoration: none;
+    margin-right: 0.5rem;
+}
+
+table td a:hover {
+    text-decoration: underline;
+}
+
+table td form {
+    display: inline;
+}

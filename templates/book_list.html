@@ -1,0 +1,60 @@
+<!-- book_list.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/book.css') }}">
+
+<nav class="book-nav">
+    <ul>
+        <li><a href="{{ url_for('books.index') }}">书籍列表</a></li>
+        <li><a href="{{ url_for('books.create') }}">添加书籍</a></li>
+    </ul>
+</nav>
+
+<h2>书籍列表</h2>
+
+<!-- 搜索表单 -->
+<form method="GET" action="{{ url_for('books.index') }}">
+    <input type="text" name="search" placeholder="搜索书籍">
+    <button type="submit">搜索</button>
+</form>
+
+<!-- 排序选项 -->
+<form method="GET" action="{{ url_for('books.index') }}">
+    <select name="sort">
+        <option value="title">按标题排序</option>
+        <option value="author">按作者排序</option>
+        <option value="published_date">按出版日期排序</option>
+    </select>
+    <button type="submit">排序</button>
+</form>
+
+<!-- 书籍列表 -->
+<table>
+    <thead>
+        <tr>
+            <th>标题</th>
+            <th>作者</th>
+            <th>出版日期</th>
+            <th>ISBN</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for book in books %}
+        <tr>
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.published_date }}</td>
+            <td>{{ book.isbn }}</td>
+            <td>
+                <a href="{{ url_for('books.edit', book_id=book.id) }}">编辑</a>
+                <form action="{{ url_for('books.delete', book_id=book.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('确定要删除这本书吗？');">
+                    <button type="submit">删除</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

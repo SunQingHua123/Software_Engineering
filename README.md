@@ -1,85 +1,74 @@
-# Software_Engineering
-2024春季学期软件工程code
-
-Software_Engineering/
+/SOFTWARE_ENGINEERING
 │
-├── src/
-│   ├── __init__.py
-│   ├── main.py            # 应用的入口点
+├── app.py                          # 主应用入口
+├── config.py                       # 配置文件（包含SECRET_KEY等配置）
+├── requirements.txt                # 项目依赖
 │
-├── application/
-│   ├── __init__.py
-│   ├── application.py     # 应用配置和初始化代码
-│   └── services/          # 应用服务层
+├── /database
+│   ├── __init__.py                 # 数据库初始化
+│   ├── models.py                   # 数据库模型定义
+│   └── init_db.py                  # 数据库初始化脚本
+│
+├── /modules
+│   ├── /auth                       # 认证模块
+│   │   ├── __init__.py
+│   │   ├── controllers.py          # 认证相关逻辑
+│   │   ├── models.py               # 认证相关的数据库模型
+│   │   └── views.py                # 认证相关视图
+│   │
+│   ├── /users                      # 用户模块
+│   │   ├── __init__.py
+│   │   ├── controllers.py          # 用户相关逻辑
+│   │   ├── models.py               # 用户相关的数据库模型
+│   │   └── views.py                # 用户相关视图
+│   │
+│   ├── /books                      # 书籍模块
+│   │   ├── __init__.py
+│   │   ├── controllers.py          # 书籍相关逻辑
+│   │   ├── models.py               # 书籍相关的数据库模型
+│   │   └── views.py                # 书籍相关视图
+│   │
+│   ├── /reviews                    # 书评模块
+│   │   ├── __init__.py
+│   │   ├── controllers.py          # 书评相关逻辑
+│   │   ├── models.py               # 书评相关的数据库模型
+│   │   └── views.py                # 书评相关视图
+│   │
+│   ├── /circles                    # 圈子模块
+│   │   ├── __init__.py
+│   │   ├── controllers.py          # 圈子相关逻辑
+│   │   ├── models.py               # 圈子相关的数据库模型
+│   │   └── views.py                # 圈子相关视图
+│   │
+│   ├── /messages                   # 消息模块
+│   │   ├── __init__.py
+│   │   ├── controllers.py          # 消息相关逻辑
+│   │   ├── models.py               # 消息相关的数据库模型
+│   │   └── views.py                # 消息相关视图
+│   │
+│   └── /friendships                # 好友关系模块
 │       ├── __init__.py
-│       ├── auth_service.py # 认证服务
-│       ├── user_service.py  # 用户服务
-│       ├── book_service.py  # 书籍服务
-│       ├── review_service.py # 书评服务
-│       ├── circle_service.py # 圈子服务
-│       └── message_service.py # 消息服务
+│       ├── controllers.py          # 好友关系相关逻辑
+│       ├── models.py               # 好友关系相关的数据库模型
+│       └── views.py                # 好友关系相关视图
 │
-├── modules/
-│   ├── auth/
-│   │   ├── __init__.py
-│   │   ├── models.py       # 认证模块的数据模型
-│   │   ├── controllers.py   # 认证模块的业务逻辑
-│   │   └── views.py         # 认证模块的GUI视图
-│   ├── users/
-│   │   ├── __init__.py
-│   │   ├── models.py        # 用户模块的数据模型
-│   │   ├── controllers.py    # 用户模块的业务逻辑
-│   │   └── views.py          # 用户模块的GUI视图
-│   ├── books/
-│   │   ├── __init__.py
-│   │   ├── models.py        # 书籍模块的数据模型
-│   │   ├── controllers.py   # 书籍模块的业务逻辑
-│   │   └── views.py         # 书籍模块的GUI视图
-│   ├── reviews/
-│   │   ├── __init__.py
-│   │   ├── models.py        # 书评模块的数据模型
-│   │   ├── controllers.py   # 书评模块的业务逻辑
-│   │   └── views.py         # 书评模块的GUI视图
-│   ├── circles/
-│   │   ├── __init__.py
-│   │   ├── models.py        # 圈子模块的数据模型
-│   │   ├── controllers.py   # 圈子模块的业务逻辑
-│   │   └── views.py         # 圈子模块的GUI视图
-│   └── messages/
-│       ├── __init__.py
-│       ├── models.py        # 消息模块的数据模型
-│       ├── controllers.py   # 消息模块的业务逻辑
-│       └── views.py         # 消息模块的GUI视图
+├── /static
+│   ├── /css
+│   │   └── styles.css              # 自定义CSS样式
+│   ├── /js
+│   │   └── scripts.js              # 自定义JavaScript脚本
+│   └── /images                     # 静态图片
 │
-├── database/
-│   ├── __init__.py
-│   ├── models.py           # 数据库模型基类
-│   ├── session.py          # 数据库会话管理
-│   ├── schema.sql          # 数据库初始化脚本
-│   └── alembic/            # Alembic 迁移目录（如果使用）
-│       ├── __init__.py
-│       ├── env.py
-│       └── versions/
-│
-├── utils/
-│   ├── __init__.py
-│   ├── common.py           # 通用工具函数
-│   ├── config.py           # 配置文件读取
-│   └── logging.py          # 日志配置
-│
-├── tests/
-│   ├── __init__.py
-│   ├── test_auth.py        # 认证模块的单元测试
-│   ├── test_users.py       # 用户模块的单元测试
-│   ├── test_books.py       # 书籍模块的单元测试
-│   ├── test_reviews.py     # 书评模块的单元测试
-│   ├── test_circles.py     # 圈子模块的单元测试
-│   └── test_messages.py    # 消息模块的单元测试
-│
-├── static/
-│   └── ...                 # 静态文件，如图片、样式等（如果使用）
-├── templates/
-│   └── ...                 # 模板文件，如HTML模板（如果使用）
-├── .gitignore
-├── README.md
-├── requirements.txt       # 项目依赖
+└── /templates                      # HTML模板文件
+    ├── base.html                   # 基础模板
+    ├── index.html                  # 首页模板
+    ├── login.html                  # 登录页面模板
+    ├── register.html               # 注册页面模板
+    ├── profile.html                # 个人主页模板
+    ├── book_form.html              # 书籍表单模板
+    ├── book_list.html              # 书籍列表模板
+    ├── circle_form.html            # 圈子表单模板
+    ├── circle_list.html            # 圈子列表模板
+    ├── message_list.html           # 消息列表模板
+    ├── friend_list.html            # 好友列表模板
+    └── review_form.html            # 书评表单模板
