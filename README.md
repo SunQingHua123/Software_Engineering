@@ -1,4 +1,4 @@
-/SOFTWARE_ENGINEERING
+SOFTWARE_ENGINEERING
 │
 ├── app.py                          # 主应用入口
 ├── config.py                       # 配置文件（包含SECRET_KEY等配置）
