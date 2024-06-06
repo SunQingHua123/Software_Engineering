@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">
+</head>
+<body>
+    <div class="header">
+        <h1>墨韵读书会</h1>
+        <p>Moyu Book Club - A Sanctuary for Thoughts and Soul</p>
+    </div>
+    <div class="container">
+        <h2>登录</h2>
+        <form method="POST" action="{{ url_for('users.login') }}">
+            <div class="form-group">
+                <label for="username">用户名:</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">密码:</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">登录</button>
+        </form>
+        <p>没有账户？ <a href="{{ url_for('users.register') }}">注册</a></p>
+    </div>
+</body>
+</html>
