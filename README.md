@@ -65,6 +65,7 @@ SOFTWARE_ENGINEERING
     ├── index.html                  # 首页模板
     ├── login.html                  # 登录页面模板
     ├── register.html               # 注册页面模板
+    ├── forgot_password.html        # 忘记密码模板
     ├── profile.html                # 个人主页模板
     ├── book_form.html              # 书籍表单模板
     ├── book_list.html              # 书籍列表模板
