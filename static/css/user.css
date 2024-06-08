@@ -1,5 +1,5 @@
 body {
-    background: url('../images/book1.jpg') no-repeat center center fixed;
+    background: url('../images/bg008.png') no-repeat center center fixed;
     background-size: cover;
     font-family: 'Arial', sans-serif;
     color: #333;
@@ -7,7 +7,7 @@ body {
 
 .container {
     max-width: 400px;
-    margin: 150px auto;
+    margin: 120px auto;
     padding: 30px;
     background: rgba(255, 255, 255, 0.95);
     border-radius: 10px;
@@ -17,12 +17,12 @@ body {
 
 .header {
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     color: #fff;
 }
 
 .header h1 {
-    font-size: 36px;
+    font-size: 40px;
     font-weight: bold;
     margin-bottom: 10px;
 }
@@ -33,7 +33,7 @@ body {
 }
 
 .header p {
-    font-size: 20px;
+    font-size: 26px;
     color: #fff;
     font-family: 'Times New Roman', Times, serif;
 }

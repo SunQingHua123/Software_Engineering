@@ -1,8 +1,8 @@
 import os
-from modules.books.views import books_bp
 from flask import Flask, render_template, redirect, url_for, session
 from database.init_db import init_db
 from modules.users.views import users_bp
+from modules.books.views import books_bp
 
 # 初始化 Flask 应用
 app = Flask(__name__)

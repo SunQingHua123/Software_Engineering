@@ -80,3 +80,14 @@ def login_user(username, password):
         return None
     finally:
         connection.close()
+
+
+def get_user_by_email(email):
+    return User.get_by_email(email)
+
+def update_user_password(user_id, new_password):
+    user = User.get_by_id(user_id)
+    if user:
+        User.update(user.id, user.username, user.email, new_password, user.role)
+        return True
+    return False

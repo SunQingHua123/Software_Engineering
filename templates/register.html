@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">
 </head>
 <body>
+    <div class="header">
+        <h1>墨韵读书会</h1>
+        <p>A sanctuary for thought and soul</p>
+    </div>
     <div class="container">
         <h2>注册</h2>
         <form method="POST" action="{{ url_for('users.register') }}">

@@ -73,3 +73,25 @@ class User:
             connection.commit()
         finally:
             connection.close()
+
+    @staticmethod
+    def get_by_username(username):
+        connection = get_connection()
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
+                result = cursor.fetchone()
+                return User(**result) if result else None
+        finally:
+            connection.close()
+
+    @staticmethod
+    def get_by_email(email):
+        connection = get_connection()
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
+                result = cursor.fetchone()
+                return User(**result) if result else None
+        finally:
+            connection.close()
