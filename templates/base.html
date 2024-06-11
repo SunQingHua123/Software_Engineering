@@ -39,6 +39,16 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">关于</a>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="{{ url_for('static', filename='images/user_icon.png') }}" alt="User Profile" style="width: 30px; height: 30px; margin-right: 10px;">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">个人信息</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ url_for('users.login') }}">退出登录</a>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
