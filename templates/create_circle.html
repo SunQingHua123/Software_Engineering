@@ -1,0 +1,24 @@
+<head>
+    <meta charset="UTF-8">
+    <title>Create Circle</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='static/css/circle.css') }}">
+</head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Circle</title>
+</head>
+<body>
+    <h1>Create a New Circle</h1>
+    <form method="post" action="">
+        <label for="name">Circle Name:</label>
+        <input type="text" id="name" name="name" required>
+        <br>
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required></textarea>
+        <br>
+        <button type="submit">Create Circle</button>
+    </form>
+</body>
+</html>

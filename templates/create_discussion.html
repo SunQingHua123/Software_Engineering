@@ -1,0 +1,26 @@
+<head>
+    <meta charset="UTF-8">
+    <title>Create Circle</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='static/css/circle.css') }}">
+</head>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Discussion</title>
+</head>
+<body>
+    <h1>Create a New Discussion in Circle: {{ circle.name }}</h1>
+    <form method="post" action="">
+        <label for="topic">Topic:</label>
+        <input type="text" id="topic" name="topic" required>
+        <br>
+        <label for="content">Content:</label>
+        <textarea id="content" name="content" required></textarea>
+        <br>
+        <button type="submit">Create Discussion</button>
+    </form>
+</body>
+</html>
