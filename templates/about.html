@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+
+<div class="container about-container py-5">
+    <div class="about-content">
+        <h2 class="text-center mb-4">About Moyun Reading Club</h2>
+        <p>Welcome to <strong>Moyun Reading Club</strong>, a vibrant community of book lovers and literary enthusiasts. Founded in 2010, Moyun Reading Club has grown from a small gathering of friends to a thriving organization with hundreds of members.</p>
+        <h3>Our History</h3>
+        <p>Since its inception, Moyun Reading Club has been dedicated to promoting literacy, fostering a love of reading, and building a strong sense of community among readers. Over the years, we have organized countless events, including author readings, book discussions, literary festivals, and writing workshops.</p>
+        <h3>Our Achievements</h3>
+        <p>Throughout our history, Moyun Reading Club has achieved many milestones and accomplishments. We have received recognition from local media outlets, won awards for our community outreach efforts, and partnered with prestigious literary organizations to bring the joy of reading to people of all ages.</p>
+        <h3>Our Future</h3>
+        <p>As we look to the future, Moyun Reading Club remains committed to its mission of promoting literacy, fostering a love of reading, and building a strong sense of community among readers. We are excited to continue expanding our programs and services, reaching new audiences, and making a positive impact on the world through the power of literature.</p>
+        <h3>Member Testimonials</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="testimonial bg-light p-4 mb-4">
+                    <p class="mb-2">"Joining Moyun Reading Club has been one of the best decisions I've ever made. The club has introduced me to so many amazing books and authors, and I've made lifelong friends along the way."</p>
+                    <p class="text-secondary">- Jane Doe, Club Member since 2015</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="testimonial bg-light p-4 mb-4">
+                    <p class="mb-2">"As a teacher, Moyun Reading Club has been an invaluable resource for me. The club's events and resources have helped me inspire a love of reading in my students and foster a deeper appreciation for literature in my classroom."</p>
+                    <p class="text-secondary">- John Smith, Club Member since 2012</p>
+                </div>
+            </div>
+        </div>
+        <h3>Get Involved</h3>
+        <p>Join us at <strong>Moyun Reading Club</strong> and become part of a vibrant community of readers. Attend our events, participate in our discussions, and discover new books and authors to explore. Together, let's embark on a journey of discovery and enlightenment through the pages of literature.</p>
+        <p>For more information about Moyun Reading Club and how to get involved, please <a href="#" class="text-decoration-none">contact us</a> or <a href="#" class="text-decoration-none">visit our website</a>.</p>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,47 @@
+/* General body styling */
+body {
+    font-size: 18px; /* Increase font size */
+}
+
+/* About container styling */
+.about-container {
+    margin-top: 20px;
+}
+
+/* Headings styling */
+h2, h3 {
+    color: #333;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+/* Testimonial styling */
+.testimonial {
+    background-color: #f9f9f9;
+    border-left: 5px solid #007bff;
+    padding: 20px;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+/* Paragraph styling */
+p {
+    line-height: 1.6; /* Improve line spacing for readability */
+}
+
+/* Links styling */
+a {
+    color: #007bff;
+}
+
+a:hover {
+    color: #0056b3;
+    text-decoration: none; /* Remove underline on hover */
+}
+
+/* Additional responsive adjustments */
+@media (max-width: 768px) {
+    body {
+        font-size: 16px; /* Slightly smaller font size on smaller devices */
+    }
+}
