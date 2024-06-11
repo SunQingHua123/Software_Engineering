@@ -1,0 +1,38 @@
+<head>
+    <meta charset="UTF-8">
+    <title>Create Circle</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='static/css/styles.css') }}">
+</head>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Circle Details</title>
+</head>
+<body>
+    <h1>{{ circle.name }}</h1>
+    <p>{{ circle.description }}</p>
+
+    <h2>Members</h2>
+    <ul>
+        {% for member in members %}
+            <li>{{ member.username }} - <form method="post" action="{{ url_for('circles.remove_member_view', circle_id=circle.circle_id, user_id=member.user_id) }}">
+                <button type="submit">Remove Member</button>
+            </form></li>
+        {% endfor %}
+    </ul>
+
+    <h2>Discussions</h2>
+    <ul>
+        {% for discussion in discussions %}
+            <li>{{ discussion.topic }} - <form method="post" action="{{ url_for('circles.delete_discussion_view', discussion_id=discussion.discussion_id) }}">
+                <button type="submit">Delete Discussion</button>
+            </form></li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ url_for('circles.add_member_view', circle_id=circle.circle_id) }}">Add Member</a>
+    <a href="{{ url_for('circles.create_discussion_view', circle_id=circle.circle_id) }}">Start Discussion</a>
+</body>
+</html>
