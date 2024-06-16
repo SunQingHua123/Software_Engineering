@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+
+<div class="container-fluid d-flex flex-column min-vh-100">
+    <div class="row flex-grow-1">
+        <div class="col-md-12">
+            <div class="chat-container">
+                <h3>与 {{ friend.username }} 的聊天</h3>
+                <div class="chat-messages">
+                    {% for message in messages %}
+                    <div class="chat-message {{ 'sent' if message.sender_id == user_id else 'received' }}">
+                        <p>{{ message.content }}</p>
+                        <div class="timestamp">{{ message.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <form method="POST" class="chat-input">
+                    <input type="text" name="message" placeholder="输入消息...">
+                    <button type="submit" class="btn btn-primary">发送</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

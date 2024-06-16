@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/messages.css') }}">
+
+<div class="container-fluid d-flex flex-column" style="flex: 1;">
+    <div class="row flex-grow-1">
+        <div class="col-md-4">
+            <div class="friends-list">
+                <h3>好友列表</h3>
+                <ul>
+                    {% for friend in friends %}
+                    <li>
+                        <a href="{{ url_for('messages.chat', friend_id=friend.id) }}">{{ friend.username }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-8 d-flex flex-column">
+            <div class="chat-box flex-grow-1 d-flex flex-column">
+                <h3>选择好友开始聊天</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

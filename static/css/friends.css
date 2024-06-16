@@ -1,0 +1,34 @@
+/* friends.css */
+.friends-list h3, .new-friends-list h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.friends-list ul, .new-friends-list ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.friends-list li, .new-friends-list li {
+    font-size: 1.2rem; /* 调整用户名字体大小 */
+    margin-bottom: 0.5rem;
+}
+
+.friends-list a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.friends-list a:hover {
+    text-decoration: underline;
+}
+
+.new-friends-list .btn {
+    margin-right: 0.5rem;
+}
+
+.input-group-append .btn-primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

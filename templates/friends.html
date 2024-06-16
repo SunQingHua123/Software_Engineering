@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/friends.css') }}">
+
+<div class="container-fluid d-flex flex-column min-vh-100">
+    <div class="row flex-grow-1">
+        <div class="col-md-6">
+            <div class="friends-list card">
+                <div class="card-header">
+                    <h3>好友列表</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        {% for friend in friends %}
+                        <li class="list-group-item">
+                            <a href="{{ url_for('messages.chat_view', friend_id=friend.id) }}">{{ friend.username }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="new-friends-list card">
+                <div class="card-header">
+                    <h3>新朋友</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        {% for request in friend_requests %}
+                        <li class="list-group-item">
+                            {{ request.sender.username }}
+                            <form method="POST">
+                                <input type="hidden" name="request_id" value="{{ request.id }}">
+                                <button type="submit" name="action" value="accept" class="btn btn-success btn-sm">接受</button>
+                                <button type="submit" name="action" value="reject" class="btn btn-danger btn-sm">拒绝</button>
+                            </form>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <form method="POST" class="mt-3">
+                        <input type="hidden" name="action" value="search">
+                        <div class="input-group">
+                            <input type="text" name="search" class="form-control" placeholder="搜索邮箱或用户名">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary">搜索</button>
+                            </div>
+                        </div>
+                    </form>
+                    {% if search_result is not none %}
+                        {% if search_result %}
+                            <div class="mt-3">
+                                <p>找到用户：{{ search_result.username }}</p>
+                                <form method="POST">
+                                    <input type="hidden" name="action" value="send_request">
+                                    <input type="hidden" name="receiver_id" value="{{ search_result.id }}">
+                                    {% if not search_result.is_friend %}
+                                    <button type="submit" class="btn btn-primary">发送好友申请</button>
+                                    {% else %}
+                                    <button type="button" class="btn btn-secondary" disabled>已是好友</button>
+                                    {% endif %}
+                                </form>
+                            </div>
+                        {% else %}
+                            <div class="mt-3">
+                                <p>未找到该用户。</p>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -57,7 +57,7 @@ def create_tables():
                 CREATE TABLE IF NOT EXISTS messages (
                     id INT AUTO_INCREMENT PRIMARY KEY,
                     content TEXT NOT NULL,
-                    sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                     sender_id INT NOT NULL,
                     receiver_id INT NOT NULL,
                     FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE,
@@ -74,6 +74,18 @@ def create_tables():
                     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
                     FOREIGN KEY (friend_id) REFERENCES users(id) ON DELETE CASCADE
                 )
+            """)
+            # 创建好友关系申请表
+            cursor.execute("""
+            CREATE TABLE IF NOT EXISTS friend_requests (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                sender_id INTEGER NOT NULL,
+                receiver_id INTEGER NOT NULL,
+                status VARCHAR(50) DEFAULT 'pending',
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE,
+                FOREIGN KEY (receiver_id) REFERENCES users(id) ON DELETE CASCADE
+            );
             """)
 
             # 插入管理员用户

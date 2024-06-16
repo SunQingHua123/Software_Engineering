@@ -95,3 +95,29 @@ class User:
                 return User(**result) if result else None
         finally:
             connection.close()
+
+    @staticmethod
+    def get_all_except(user_id):
+        connection = get_connection()
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM users WHERE id != %s", (user_id,))
+                result = cursor.fetchall()
+                return [User(**row) for row in result]
+        finally:
+            connection.close()
+
+
+    @staticmethod
+    def search_user(query):
+        connection = get_connection()
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute("""
+                    SELECT * FROM users
+                    WHERE username LIKE %s OR email LIKE %s
+                """, (f'%{query}%', f'%{query}%'))
+                result = cursor.fetchone()
+                return User(**result) if result else None
+        finally:
+            connection.close()
