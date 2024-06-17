@@ -1,4 +1,5 @@
 from flask import session, abort
+from modules.circles.models import Circle, Membership, Discussion
 
 def get_user_role(user_id):
     # 假设有一个函数可以根据用户ID获取用户角色
