@@ -1,71 +1,62 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash, session
-from yourapp.controllers.circles_controller import (
-    create_circle, get_circle_by_id, update_circle, delete_circle,
-    add_member_to_circle, remove_member_from_circle,
-    create_discussion, delete_discussion
-)
+import os
+import sys
 
-circles_bp = Blueprint('circles', __name__)
+# 将上级目录添加到系统路径中，以便导入模块
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/../..")
+from flask import Blueprint, render_template, request, redirect, url_for
+from modules.circles.controllers import create_circle, get_circle_by_id, update_circle, delete_circle, add_member_to_circle, remove_member_from_circle, get_circles
 
-@circles_bp.route('/circles/create', methods=['GET', 'POST'])
-def create_circle_view():
+circles_bp = Blueprint('circles', __name__, template_folder='../../templates')
+
+@circles_bp.route('/')
+def index():
+    circles = get_circles()  # 获取所有圈子的列表
+    return render_template('circle_list.html', circles=circles)
+
+@circles_bp.route('/create', methods=['GET', 'POST'])
+def create():
     if request.method == 'POST':
-        name = request.form['name']
-        description = request.form['description']
-        creator_id = session.get('user_id')  # 假设用户ID已经保存在session中
-        if create_circle(name, description, creator_id):
-            flash('圈子创建成功', 'success')
-        else:
-            flash('创建失败', 'danger')
-        return redirect(url_for('circles.list_circles'))
-    return render_template('create_circle.html')
+        name = request.form.get('name')
+        description = request.form.get('description')
+        user_id = request.form.get('user_id')  # 实际应用中应从session或token中获取
+        if not name or not description or not user_id:
+            return "Error: All fields are required", 400
+        circle_id = create_circle(name, description, user_id)
+        return redirect(url_for('circles.index'))
+    return render_template('circle_form.html', form_title='创建圈子', circle=None)
 
-@circles_bp.route('/circles/delete/<int:circle_id>', methods=['POST'])
-def delete_circle_view(circle_id):
-    if delete_circle(circle_id):
-        flash('圈子删除成功', 'success')
-    else:
-        flash('删除失败', 'danger')
-    return redirect(url_for('circles.list_circles'))
-
-@circles_bp.route('/circles/add_member', methods=['POST'])
-def add_member_view():
-    circle_id = request.form['circle_id']
-    user_id = request.form['user_id']
-    if add_member_to_circle(circle_id, user_id):
-        flash('成员添加成功', 'success')
-    else:
-        flash('添加失败', 'danger')
-    return redirect(url_for('circles.circle_details', circle_id=circle_id))
-
-@circles_bp.route('/circles/remove_member', methods=['POST'])
-def remove_member_view():
-    circle_id = request.form['circle_id']
-    user_id = request.form['user_id']
-    if remove_member_from_circle(circle_id, user_id):
-        flash('成员移除成功', 'success')
-    else:
-        flash('移除失败', 'danger')
-    return redirect(url_for('circles.circle_details', circle_id=circle_id))
-
-@circles_bp.route('/discussions/create', methods=['GET', 'POST'])
-def create_discussion_view():
+@circles_bp.route('/edit/<int:circle_id>', methods=['GET', 'POST'])
+def edit(circle_id):
+    circle = get_circle_by_id(circle_id)
     if request.method == 'POST':
-        circle_id = request.form['circle_id']
-        creator_id = session.get('user_id')
-        topic = request.form['topic']
-        content = request.form['content']
-        if create_discussion(circle_id, creator_id, topic, content):
-            flash('讨论创建成功', 'success')
-        else:
-            flash('创建失败', 'danger')
-        return redirect(url_for('circles.circle_details', circle_id=circle_id))
-    return render_template('create_discussion.html')
+        name = request.form.get('name')
+        description = request.form.get('description')
+        if not name or not description:
+            return "Error: All fields are required", 400
+        update_circle(circle_id, name, description)
+        return redirect(url_for('circles.index'))
+    return render_template('circle_form.html', form_title='编辑圈子', circle=circle)
 
-@circles_bp.route('/discussions/delete/<int:discussion_id>', methods=['POST'])
-def delete_discussion_view(discussion_id):
-    if delete_discussion(discussion_id):
-        flash('讨论删除成功', 'success')
-    else:
-        flash('删除失败', 'danger')
-    return redirect(url_for('circles.circle_details', circle_id=request.form['circle_id']))
+@circles_bp.route('/delete/<int:circle_id>', methods=['POST'])
+def delete(circle_id):
+    delete_circle(circle_id)
+    return redirect(url_for('circles.index'))
+
+@circles_bp.route('/add_member', methods=['POST'])
+def add_member():
+    circle_id = request.form.get('circle_id')
+    user_id = request.form.get('user_id')
+    role = request.form.get('role', 'member')
+    if not circle_id or not user_id:
+        return "Error: Circle ID and User ID are required", 400
+    add_member_to_circle(circle_id, user_id, role)
+    return redirect(url_for('circles.index'))
+
+@circles_bp.route('/remove_member', methods=['POST'])
+def remove_member():
+    circle_id = request.form.get('circle_id')
+    user_id = request.form.get('user_id')
+    if not circle_id or not user_id:
+        return "Error: Circle ID and User ID are required", 400
+    remove_member_from_circle(circle_id, user_id)
+    return redirect(url_for('circles.index'))
