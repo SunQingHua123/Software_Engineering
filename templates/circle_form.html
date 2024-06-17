@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/circle.css') }}">
+
+<div class="circle-content">
+    <nav class="circle-nav">
+        <ul>
+            <li><a href="{{ url_for('circles.index') }}">圈子列表</a></li>
+            <li><a href="{{ url_for('circles.create') }}">创建圈子</a></li>
+        </ul>
+    </nav>
+
+    <div class="form-content">
+        <h2>{{ form_title }}</h2>
+        <form method="POST">
+            <input type="hidden" name="user_id" value="{{ session['user_id'] if 'user_id' in session else '' }}">
+            <div class="form-group">
+                <label for="name">圈子名称</label>
+                <input type="text" id="name" name="name" value="{{ circle.name if circle else '' }}" required>
+            </div>
+            <div class="form-group">
+                <label for="description">描述</label>
+                <textarea id="description" name="description" required>{{ circle.description if circle else '' }}</textarea>
+            </div>
+            <button type="submit">保存</button>
+        </form>
+    </div>
+
+    <div class="footer-spacing"></div>
+</div>
+{% endblock %}
