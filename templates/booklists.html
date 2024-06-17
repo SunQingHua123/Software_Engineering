@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Your Booklists</h1>
+<a href="{{ url_for('booklist.create_booklist_view') }}">Create New Booklist</a>
+<ul>
+    {% for booklist in booklists %}
+    <li>
+        <h2>{{ booklist.title }}</h2>
+        <p>Author: {{ booklist.author }}</p>
+        <a href="{{ url_for('booklist.edit_booklist', booklist_id=booklist.id) }}">Edit</a>
+        <form action="{{ url_for('booklist.delete_booklist_view', booklist_id=booklist.id) }}" method="post">
+            <button type="submit">Delete</button>
+        </form>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

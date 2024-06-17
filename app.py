@@ -5,6 +5,10 @@ from modules.users.views import users_bp
 from modules.books.views import books_bp
 from modules.messages.views import messages_bp
 from modules.friendships.views import friendships_bp
+from modules.profile.views import profile_bp
+from modules.logs.views import logs_bp
+from modules.booklist.views import booklist_bp
+from modules.reviews.views import reviews_bp
 
 # 初始化 Flask 应用
 app = Flask(__name__)
@@ -16,6 +20,10 @@ app.register_blueprint(users_bp, url_prefix='/users')
 app.register_blueprint(books_bp, url_prefix='/books')
 app.register_blueprint(messages_bp, url_prefix='/messages')
 app.register_blueprint(friendships_bp, url_prefix='/friendships')
+app.register_blueprint(profile_bp, url_prefix='/profile')
+app.register_blueprint(logs_bp, url_prefix='/logs')
+app.register_blueprint(booklist_bp, url_prefix='/booklists')
+app.register_blueprint(reviews_bp, url_prefix='/reviews')
 
 
 # 初始化数据库

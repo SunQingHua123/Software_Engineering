@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Your Logs</h1>
+<a href="{{ url_for('logs.create_log_view') }}">Create New Log</a>
+<ul>
+    {% for log in logs %}
+    <li>
+        <h2>{{ log.title }}</h2>
+        <p>{{ log.content }}</p>
+        <a href="{{ url_for('logs.edit_log', log_id=log.id) }}">Edit</a>
+        <form action="{{ url_for('logs.delete_log_view', log_id=log.id) }}" method="post">
+            <button type="submit">Delete</button>
+        </form>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

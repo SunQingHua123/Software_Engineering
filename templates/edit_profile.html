@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Edit Profile</h1>
+<form method="post">
+    <div>
+        <label for="nickname">Nickname:</label>
+        <input type="text" id="nickname" name="nickname" value="{{ profile.nickname }}">
+    </div>
+    <div>
+        <label for="avatar">Avatar URL:</label>
+        <input type="text" id="avatar" name="avatar" value="{{ profile.avatar }}">
+    </div>
+    <div>
+        <label for="contact_info">Contact Info:</label>
+        <input type="text" id="contact_info" name="contact_info" value="{{ profile.contact_info }}">
+    </div>
+    <button type="submit">Update Profile</button>
+</form>
+{% endblock %}
