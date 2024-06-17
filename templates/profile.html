@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ profile.nickname }}'s Profile</h1>
+<img src="{{ profile.avatar }}" alt="Avatar">
+<p>Contact Info: {{ profile.contact_info }}</p>
+<a href="{{ url_for('profile.edit_profile') }}">Edit Profile</a>
+<form action="{{ url_for('profile.delete_user_profile') }}" method="post">
+    <button type="submit">Delete Profile</button>
+</form>
+{% endblock %}

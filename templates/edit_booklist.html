@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Edit Booklist</h1>
+<form method="post">
+    <div>
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" value="{{ booklist.title }}">
+    </div>
+    <div>
+        <label for="author">Author:</label>
+        <input type="text" id="author" name="author" value="{{ booklist.author }}">
+    </div>
+    <button type="submit">Update</button>
+</form>
+{% endblock %}
