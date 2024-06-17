@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>书评统计</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='review.css') }}">
+</head>
+<body>
+    <h1>书评统计</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>书籍ID</th>
+                <th>书评数量</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stat in stats %}
+            <tr>
+                <td>{{ stat.book_id }}</td>
+                <td>{{ stat.review_count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('reviews.index') }}">返回首页</a>
+</body>
+</html>
+{% endblock %}
