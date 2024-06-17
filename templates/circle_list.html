@@ -1,1 +1,42 @@
 
+<!-- circle_list.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/circle.css') }}">
+
+<div class="circle-content">
+    <nav class="circle-nav">
+        <ul>
+            <li><a href="{{ url_for('circles.create') }}">创建圈子</a></li>
+        </ul>
+    </nav>
+
+    <div class="table-responsive">
+        <h2>圈子列表</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>名称</th>
+                    <th>描述</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for circle in circles %}
+                <tr>
+                    <td>{{ circle.name }}</td>
+                    <td>{{ circle.description }}</td>
+                    <td>
+                        <a href="{{ url_for('circles.edit', circle_id=circle.id) }}">编辑</a>
+                        <form action="{{ url_for('circles.delete', circle_id=circle.id) }}" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger">删除</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
