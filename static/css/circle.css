@@ -1,59 +1,129 @@
+/* 基础字体和背景设置 */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    height: 100%; /* 确保页面的完整高度 */
     margin: 0;
     padding: 0;
     display: flex;
+    flex-direction: column;
+}
+/* static/css/circle.css */
+
+.circle-nav ul li a, /* 创建圈子 */
+.form-content .form-group label { /* 圈子名称, 描述 */
+    color: white;
+}
+
+/* 容器用来确保内容区充满整个视口 */
+.circle-content {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* 使用视窗高度确保最小高度 */
+    padding-top: 80px; /* 为顶部固定的导航栏预留空间 */
+}
+
+/* 导航菜单样式 */
+.circle-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
 }
 
-.container {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+.circle-nav ul li {
+    display: inline;
+    margin-right: 10px;
 }
 
+.circle-nav a {
+    text-decoration: none;
+    color: blue;
+}
+
+/* 表单样式 */
 .form-group {
     margin-bottom: 15px;
 }
 
-.form-control {
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+textarea {
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
 
-.btn {
-    background-color: #007BFF;
+button {
+    background-color: #4CAF50;
     color: white;
-    padding: 10px 20px;
+    padding: 10px 15px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* 表单内容区居中 */
+.form-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* 底部留白，避免内容被底栏覆盖 */
+.footer-spacing {
+    margin-bottom: 50px; /* 根据底部导航高度调整 */
+}
+
+/* 表格样式 */
+table {
     width: 100%;
+    border-collapse: collapse;
 }
 
-.btn:hover {
-    background-color: #0056b3;
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
 }
 
-/* Existing styles from create_form.html can remain as is, and add these new styles */
-.btn-small {
-    padding: 5px 10px;
-    font-size: 0.8rem;
+th {
+    background-color: #f2f2f2;
 }
 
-.btn-danger {
-    background-color: #dc3545;
+tr:nth-child(even) {
+    background-color: #f9f9f9;
 }
 
-.btn-danger:hover {
-    background-color: #c82333;
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* 链接按钮样式 */
+.button-link {
+    border: none;
+    color: blue;
+}
+
+.circle-content {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* 使用视窗高度确保最小高度 */
+    padding-top: 80px; /* 为顶部固定的导航栏预留空间 */
+    background: url('/static/images/bg001.png') no-repeat center center; /* 设置背景图像 */
+    background-size: cover; /* 背景图像覆盖整个元素 */
 }
 
 
