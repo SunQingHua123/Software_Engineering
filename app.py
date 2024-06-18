@@ -9,6 +9,8 @@ from modules.profile.views import profile_bp
 from modules.logs.views import logs_bp
 from modules.booklist.views import booklist_bp
 from modules.reviews.views import reviews_bp
+from modules.circles.views import circles_bp
+
 
 # 初始化 Flask 应用
 app = Flask(__name__)
@@ -24,6 +26,7 @@ app.register_blueprint(profile_bp, url_prefix='/profile')
 app.register_blueprint(logs_bp, url_prefix='/logs')
 app.register_blueprint(booklist_bp, url_prefix='/booklists')
 app.register_blueprint(reviews_bp, url_prefix='/reviews')
+app.register_blueprint(circles_bp, url_prefix='/circles')
 
 
 # 初始化数据库
