@@ -53,7 +53,7 @@ Circle.members = relationship("CircleMember", back_populates="circle", order_by=
 Circle.discussions = relationship("Discussion", back_populates="circle", order_by=Discussion.created_at)
 
 # 数据库连接和会话创建
-engine = create_engine('mysql+pymysql://admin:admin123456@localhost/moyun')
+engine = create_engine('mysql+pymysql://root:@localhost/moyun?charset=utf8mb4')
 Session = sessionmaker(bind=engine)
 
 
