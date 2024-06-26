@@ -87,6 +87,41 @@ def create_tables():
                 FOREIGN KEY (receiver_id) REFERENCES users(id) ON DELETE CASCADE
             );
             """)
+            
+            # 创建个人主页表
+            cursor.execute("""
+            CREATE TABLE IF NOT EXISTS profiles (
+                user_id INT PRIMARY KEY,
+                nickname VARCHAR(100),
+                avatar VARCHAR(255),
+                contact_info TEXT,
+                FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+            )
+            """)
+
+            # 创建日志表
+            cursor.execute("""
+            CREATE TABLE IF NOT EXISTS logs (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                user_id INT NOT NULL,
+                title VARCHAR(255) NOT NULL,
+                content TEXT NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+            )
+            """)
+
+            # 创建书单表
+            cursor.execute("""
+            CREATE TABLE IF NOT EXISTS booklists (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                user_id INT NOT NULL,
+                title VARCHAR(255) NOT NULL,
+                author VARCHAR(255) NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+            )
+            """)
 
             # 插入管理员用户
             admin_username = 'admin'

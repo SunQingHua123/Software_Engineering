@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-10">
+            <div class="card mt-5">
+                <div class="card-body">
+                    <h1 class="card-title mb-4">添加书评</h1>
+
+                    <form action="{{ url_for('reviews.create') }}" method="post">
+                        <div class="form-group">
+                            <label for="book_id">选择书籍：</label>
+                            <select class="form-control" id="book_id" name="book_id" required>
+                                {% for book in books %}
+                                    <option value="{{ book.id }}">{{ book.title }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="content">内容：</label>
+                            <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="rating">评分：</label>
+                            <input type="number" class="form-control" id="rating" name="rating" min="1" max="5" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">提交书评</button>
+                    </form>
+
+                    <a href="{{ url_for('reviews.index') }}" class="btn btn-secondary mt-3">返回书评列表</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

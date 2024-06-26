@@ -34,7 +34,7 @@
                     <a class="nav-link" href="{{ url_for('friendships.friends_view') }}">消息</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">个人主页</a>
+                    <a class="nav-link" href="{{ url_for('profile.view_profile') }}">个人主页</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('about') }}">关于</a>
@@ -44,7 +44,7 @@
                         <img src="{{ url_for('static', filename='images/user_icon.png') }}" alt="User Profile" style="width: 30px; height: 30px; margin-right: 10px;">
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">个人信息</a>
+                        <a class="dropdown-item" href="{{ url_for('profile.edit_profile') }}">个人信息</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ url_for('users.login') }}">退出登录</a>
                     </div>

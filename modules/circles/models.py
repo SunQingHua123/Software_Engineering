@@ -1,11 +1,9 @@
 from sqlalchemy import create_engine, Column, Integer, String, Text, ForeignKey, TIMESTAMP
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
+from modules.users.models import User
 
 Base = declarative_base()
-
-
-
 
 
 class Circle(Base):

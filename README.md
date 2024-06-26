@@ -11,11 +11,6 @@ SOFTWARE_ENGINEERING
 │   └── init_db.py                  # 数据库初始化脚本
 │
 ├── /modules
-│   ├── /auth                       # 认证模块
-│   │   ├── __init__.py
-│   │   ├── controllers.py          # 认证相关逻辑
-│   │   ├── models.py               # 认证相关的数据库模型
-│   │   └── views.py                # 认证相关视图
 │   │
 │   ├── /users                      # 用户模块
 │   │   ├── __init__.py
@@ -73,6 +68,6 @@ SOFTWARE_ENGINEERING
     ├── circle_list.html            # 圈子列表模板
     ├── message_list.html           # 消息列表模板
     ├── friend_list.html            # 好友列表模板
-    └── review_form.html            # 书评表单模板
+    └── review_list.html            # 书评表单模板
 ```
 
